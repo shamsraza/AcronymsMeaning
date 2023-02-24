@@ -1,5 +1,4 @@
 package com.raza.acronymsmeaning.model
 
-data class MeaningsItem(val lfs: List<Longform>,
-                        val sf: String) {
-}
+data class MeaningsItem(val lfs: List<LongForm>,
+                        val sf: String)
