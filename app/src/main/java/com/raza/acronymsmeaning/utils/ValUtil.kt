@@ -7,6 +7,7 @@ object ValUtil {
     private const val NON_ALPHABET_SF_MESSAGE = "Acronym can contain only alphabets."
     const val NETWORK_ERROR_MESSAGE = "Please check Internet Connectivity."
     const val RESPONSE_ERROR_MESSAGE = "Response is empty."
+
     fun isValid(abbreviation: String): Pair<Boolean, String> {
         return if (abbreviation.isEmpty())
             Pair(false, EMPTY_SF_MESSAGE)

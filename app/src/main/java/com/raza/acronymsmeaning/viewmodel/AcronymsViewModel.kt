@@ -9,7 +9,7 @@ import com.raza.acronymsmeaning.utils.ValUtil
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 
-class AcronymsViewModel:BaseViewModel() {
+class AcronymsViewModel : BaseViewModel() {
     val largeFormList = MutableLiveData<List<String>>()
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
@@ -17,22 +17,22 @@ class AcronymsViewModel:BaseViewModel() {
     val loading = MutableLiveData(View.GONE)
     val rvVisibility = MutableLiveData(View.GONE)
 
-    fun getAcronyms(sortForm:String){
+    fun getAcronyms(sortForm: String) {
         coroutineScope.launch {
-            try{
+            try {
                 loading.postValue(View.VISIBLE)
-            val response=AcronymsRepository.getAcronyms(sortForm)
-            if(response.isSuccessful){
-                val responseBody = response.body()
-                if (responseBody != null) {
-                  getLargeFormsList(responseBody)
-                    loading.postValue(View.GONE)
+                val response = AcronymsRepository.getAcronyms(sortForm)
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        getLargeFormsList(responseBody)
+                        loading.postValue(View.GONE)
+                    } else {
+                        onError(response.toString())
+                    }
                 } else {
                     onError(response.toString())
                 }
-            }else{
-                onError(response.toString())
-            }
 
             } catch (ex: UnknownHostException) {
                 onError(ValUtil.NETWORK_ERROR_MESSAGE)

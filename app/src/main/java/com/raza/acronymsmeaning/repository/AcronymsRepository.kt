@@ -5,10 +5,10 @@ import com.raza.acronymsmeaning.model.Meanings
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 
-object  AcronymsRepository {
+object AcronymsRepository {
     private val apiManager: ApiManager = ApiManager()
 
-   suspend fun getAcronyms(sortForm:String): Response<Meanings> {
+    suspend fun getAcronyms(sortForm: String): Response<Meanings> {
         return apiManager.getAcronyms(sortForm)
     }
 }

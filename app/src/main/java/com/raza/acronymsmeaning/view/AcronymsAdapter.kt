@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.raza.acronymsmeaning.databinding.RvItemAdapterBinding
 
-class AcronymsAdapter :RecyclerView.Adapter<AcronymsViewHolder>(){
+class AcronymsAdapter : RecyclerView.Adapter<AcronymsViewHolder>() {
+
     private var fullFormsList = mutableListOf<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AcronymsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -21,9 +22,11 @@ class AcronymsAdapter :RecyclerView.Adapter<AcronymsViewHolder>(){
     override fun getItemCount(): Int {
         return fullFormsList.size
     }
+
     fun setData(lfs: List<String>) {
         this.fullFormsList = lfs.toMutableList()
         notifyDataSetChanged()
     }
 }
+
 class AcronymsViewHolder(val binding: RvItemAdapterBinding) : RecyclerView.ViewHolder(binding.root)

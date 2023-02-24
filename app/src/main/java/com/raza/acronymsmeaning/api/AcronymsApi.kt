@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface AcronymsApi {
     @GET("dictionary.py")
-   suspend  fun getMeaningsData(
+    suspend fun getMeaningsData(
         @Query("sf") sortForm: String
     ): Response<Meanings>
 }

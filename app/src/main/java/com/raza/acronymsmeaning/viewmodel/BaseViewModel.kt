@@ -5,9 +5,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
-open class BaseViewModel :ViewModel(){
-    var viewModelJob= Job()
-    val coroutineScope= CoroutineScope(viewModelJob+ Dispatchers.Main)
+open class BaseViewModel : ViewModel() {
+    var viewModelJob = Job()
+    val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
     override fun onCleared() {

@@ -14,21 +14,22 @@ import com.raza.acronymsmeaning.databinding.ActivityMainBinding
 import com.raza.acronymsmeaning.utils.ValUtil
 import com.raza.acronymsmeaning.viewmodel.AcronymsViewModel
 
-class MainActivity : AppCompatActivity(),View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var acronymsViewModel: AcronymsViewModel
     private lateinit var binding: ActivityMainBinding
-    private val adapter=AcronymsAdapter()
+    private val adapter = AcronymsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
-        binding.recyclerview.adapter=adapter
-        acronymsViewModel = ViewModelProvider(this,)[AcronymsViewModel::class.java]
-        binding.acronymsViewModel=acronymsViewModel
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.recyclerview.adapter = adapter
+        acronymsViewModel = ViewModelProvider(this)[AcronymsViewModel::class.java]
+        binding.acronymsViewModel = acronymsViewModel
         binding.lifecycleOwner = this
         observeData()
     }
-    private fun observeData(){
+
+    private fun observeData() {
         acronymsViewModel.largeFormList.observe(this) {
             adapter.setData(it)
             acronymsViewModel.rvVisibility.postValue(View.VISIBLE)
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             }
         }
     }
+
     private fun View.hideKeyboard() {
         val inputManager =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
