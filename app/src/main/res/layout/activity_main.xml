@@ -20,7 +20,7 @@
             android:id="@+id/progressBar"
             android:layout_width="@dimen/dp100"
             android:layout_height="@dimen/dp100"
-            android:indeterminateTint="@color/black"
+            android:indeterminateTint="@color/purple_700"
             android:visibility="@{acronymsViewModel.loading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
