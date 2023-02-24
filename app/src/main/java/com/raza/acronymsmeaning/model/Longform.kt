@@ -1,6 +1,6 @@
 package com.raza.acronymsmeaning.model
 
-data class LongForm(
+data class Longform(
     val freq: Int,
     val lf: String,
     val since: Int,
