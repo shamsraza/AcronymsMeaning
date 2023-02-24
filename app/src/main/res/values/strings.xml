@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">AcronymsMeaning</string>
-    <string name="hint">enter abbreviation</string>
-    <string name="search">Search</string>
-    <string name="reset">Reset</string>
+    <string name="app_name">Acronyms Meaning</string>
+    <string name="hint">please enter acronym</string>
 </resources>
