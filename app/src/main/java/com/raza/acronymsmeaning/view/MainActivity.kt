@@ -13,6 +13,7 @@ import com.raza.acronymsmeaning.R
 import com.raza.acronymsmeaning.databinding.ActivityMainBinding
 import com.raza.acronymsmeaning.utils.ValUtil
 import com.raza.acronymsmeaning.viewmodel.AcronymsViewModel
+import kotlinx.coroutines.Dispatchers
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var acronymsViewModel: AcronymsViewModel
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             .show()
                     }
                     else -> {
-                        acronymsViewModel.getAcronyms(abbr)
+                        acronymsViewModel.getAcronyms(abbr,Dispatchers.IO)
                         binding.recyclerview.smoothScrollToPosition(0)
                     }
                 }

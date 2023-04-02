@@ -3,40 +3,42 @@ package com.raza.acronymsmeaning.viewmodel
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.raza.acronymsmeaning.model.Meanings
 import com.raza.acronymsmeaning.repository.AcronymsRepository
+import com.raza.acronymsmeaning.utils.NetworkResult
 import com.raza.acronymsmeaning.utils.ValUtil
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 
-class AcronymsViewModel : BaseViewModel() {
-    val largeFormList = MutableLiveData<List<String>>()
+class AcronymsViewModel : ViewModel() {
+   private val _largeFormList = MutableLiveData<List<String>>()
+    val largeFormList :LiveData<List<String>>
+    get() = _largeFormList
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
     val loading = MutableLiveData(View.GONE)
     val rvVisibility = MutableLiveData(View.GONE)
 
-    fun getAcronyms(sortForm: String) {
-        coroutineScope.launch {
+    fun getAcronyms(sortForm: String,coroutineDispatcher: CoroutineDispatcher) {
+        viewModelScope.launch(coroutineDispatcher) {
+            loading.postValue(View.VISIBLE)
             try {
-                loading.postValue(View.VISIBLE)
-                val response = AcronymsRepository.getAcronyms(sortForm)
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        getLargeFormsList(responseBody)
+                when (val response = AcronymsRepository.getAcronyms(sortForm)) {
+                    is NetworkResult.Success -> {
+                        getLargeFormsList(response.data)
                         loading.postValue(View.GONE)
-                    } else {
+                    }
+                    is NetworkResult.Error -> {
                         onError(response.toString())
                     }
-                } else {
-                    onError(response.toString())
                 }
-
             } catch (ex: UnknownHostException) {
                 onError(ValUtil.NETWORK_ERROR_MESSAGE)
-            } catch (ex: Exception) {
+            } catch (ex: java.lang.Exception) {
                 onError(ex.stackTraceToString())
             }
         }
@@ -49,7 +51,7 @@ class AcronymsViewModel : BaseViewModel() {
             for (lfItem in meaningsData[0].lfs) {
                 tempLfArrayList.add(lfItem.lf)
             }
-            largeFormList.postValue(tempLfArrayList)
+            _largeFormList.postValue(tempLfArrayList)
         } else {
             onError(ValUtil.RESPONSE_ERROR_MESSAGE)
         }
